@@ -14,7 +14,7 @@ export default function Home() {
   const [levels, setLevels] = useState(initialLevels);
   const [selectedInvestor, setSelectedInvestor] = useState();
   const [totalScore, setTotalScore] = useState(0);
-  const [timer, setTimer] = useState(60); // Change the timer value based on your game requirements
+  const [timer, setTimer] = useState(30); // Change the timer value based on your game requirements
   const { smallBusiness, potentialInvestors } = levels[levelIndex];
   const [selectedInvestorStatus, setSelectedInvestorStatus] = useState(
     Array(potentialInvestors.length).fill(false)
