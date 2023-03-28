@@ -3,7 +3,7 @@ import Image from 'next/image'
 import { Inter } from 'next/font/google'
 import styles from 'kfgame/styles/Home.module.css'
 import React, { useState, useEffect } from 'react';
-import { initialLevels, generateLevel, investorNames } from './levels';
+import { initialLevels, generateLevel, investorNames } from '../components/levels';
 
 const inter = Inter({ subsets: ['latin'] })
 
