@@ -55,3 +55,5 @@ export const generateLevel = (i) => {
   };
   
   export const initialLevels = Array.from({ length: 20 }, (_, i) => generateLevel(i));
+
+  export default { investorNames, generateLevel, initialLevels};
