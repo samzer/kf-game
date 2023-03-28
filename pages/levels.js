@@ -36,7 +36,7 @@ export const generateLevel = (i) => {
           name: investorNames[i * 3],
           investmentSize: (i + 1) * 1000 + (i % 3) * 1000,
           interestRate: 0.05 + (i % 5) * 0.01,
-          timeline: 3 + (i % 12),
+          timeline: 7 + (i % 12),
         },
         {
           name: investorNames[i * 3 + 1],

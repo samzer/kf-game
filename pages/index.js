@@ -14,7 +14,7 @@ export default function Home() {
   const [levels, setLevels] = useState(initialLevels);
   const [selectedInvestor, setSelectedInvestor] = useState();
   const [totalScore, setTotalScore] = useState(0);
-  const [timer, setTimer] = useState(30); // Change the timer value based on your game requirements
+  const [timer, setTimer] = useState(60); // Change the timer value based on your game requirements
   const { smallBusiness, potentialInvestors } = levels[levelIndex];
   const [selectedInvestorStatus, setSelectedInvestorStatus] = useState(
     Array(potentialInvestors.length).fill(false)
@@ -89,58 +89,69 @@ export default function Home() {
     randomizeLevels();
   }, []);
   
-
   return (
-    <div className="App">
-      {gameOver ? (
-      <div>
-        <h1>Game Over!</h1>
-        <p>Your total score is: {Math.round(totalScore)}</p>
-      </div>
-    ) : (
-      <div>
-      <h1>Kickfurther Matching Game</h1>
-      <p>Level: {levelIndex + 1}</p>
-      <p>Total Score: {totalScore}</p>
-      <p>Timer: {timer} seconds</p>
-      <h2>Small Business Details</h2>
-      <div>
-        <p>Name: {smallBusiness.name}</p>
-        <p>Inventory Needs: ${smallBusiness.inventoryNeeds}</p>
-        <p>Preferred Interest Rate: {Math.round(smallBusiness.preferredInterestRate * 100)}%</p>
-        <p>Preferred Timeline: {smallBusiness.preferredTimeline} months</p>
-      </div>
+    <div className="min-h-screen bg-gray-100 py-6 flex flex-col justify-center sm:py-12">
+      <div className="relative py-3 sm:max-w-xl sm:mx-auto">
+        <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-light-blue-500 shadow-lg transform -skew-y-6 sm:skew-y-0 sm:-rotate-6 sm:rounded-3xl"></div>
+        <div className="relative px-4 py-10 bg-white shadow-lg sm:rounded-3xl sm:p-20">
+        <img src="/kickfurther-logo.png" alt="Kickfurther Logo" className="w-48 mx-auto mb-8" />
+          {gameOver ? (
+            <div className="text-center">
+              <h1 className="text-4xl font-bold text-black">Game Over!</h1>
+              <p className="text-xl mt-4 text-black">Your total score is: {Math.round(totalScore)}</p>
+            </div>
+          ) : (
+            <div>
+              <h1 className="text-4xl font-bold text-black">Kickfurther Matching Game</h1>
+              <div className="mt-4 text-black">
+                <p>Level: {levelIndex + 1}</p>
+                <p>Total Score: {Math.round(totalScore)}</p>
+              </div>
+              <h2 className="text-2xl font-semibold mt-6 text-black">Small Business Details</h2>
+              <div className="mt-4 text-black">
+                <p>Name: {smallBusiness.name}</p>
+                <p>Inventory Needs: ${smallBusiness.inventoryNeeds}</p>
+                <p>Preferred Interest Rate: {Math.round(smallBusiness.preferredInterestRate * 100)}%</p>
+                <p>Preferred Timeline: {smallBusiness.preferredTimeline} months</p>
+              </div>
+  
+              <h2 className="text-2xl font-semibold mt-6 text-black">Potential Investors</h2>
+              <div className="mt-4">
+                {potentialInvestors.map((investor, index) => (
+                  <div
+                    key={index}
+                    className={`p-6 rounded-lg shadow-md mb-4 ${selectedInvestorStatus[index] ? "bg-green-500" : "bg-black"}`}
+                  >
+                    <div className="text-white">
+                      <p>Name: {investor.name}</p>
+                      <p>Investment Size: ${investor.investmentSize}</p>
+                      <p>Interest Rate: {Math.round(investor.interestRate * 100)}%</p>
+                      <p>Timeline: {investor.timeline} months</p>
+                    </div>
+                    <button
+                      onClick={() => handleInvestorSelection(investor, index)}
+                      disabled={selectedInvestorStatus[index]}
+                      className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded mt-4"
+                    >
+                      Select Investor
+                    </button>
+                  </div>
+                ))}
+              </div>
+  
+              {/* <button onClick={handleNextLevel} className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded mt-4">
+                Next Level
+              </button> */}
+              {timer > 0 ? handleTimer() : handleGameOver()}
 
-      <h2>Potential Investors</h2>
-      <div>
-            {potentialInvestors.map((investor, index) => (
-        <div
-          key={index}
-          style={{
-            backgroundColor: selectedInvestorStatus[index] ? "green" : "black",
-          }}
-        >
-          <div>
-            <p>Name: {investor.name}</p>
-            <p>Investment Size: ${investor.investmentSize}</p>
-            <p>Interest Rate: {Math.round(investor.interestRate * 100)}%</p>
-            <p>Timeline: {investor.timeline} months</p>
-          </div>
-          <button
-            onClick={() => handleInvestorSelection(investor, index)}
-            disabled={selectedInvestorStatus[index]}
-          >
-            Select Investor
-          </button>
+              <div className="fixed bottom-8 right-8 p-4 bg-red-500 text-white rounded-lg shadow-md">
+                <p>Timer: {timer} seconds</p>
+              </div>
+            </div>
+          )}
         </div>
-      ))}
       </div>
-
-      <button onClick={handleNextLevel}>Next Level</button>
-      {timer > 0 ? handleTimer() : handleGameOver()}
     </div>
-    )
-}
-</div>
-)
+  );
+  
 }
