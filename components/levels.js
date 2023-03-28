@@ -20,13 +20,27 @@ export const investorNames = [
     "Sophia Lee",
     "Tyler Gonzalez",
   ];
+
+
+export const businessNames = [
+  "Green Leaf Gardens",
+  "Blue Ocean Clothing",
+  "Golden Harvest Farms",
+  "Redwood Builders",
+  "Silver Star Software",
+  "Purple Peak Productions",
+  "Yellow Sun Energy",
+  "Pink Petal Florist",
+  "Orange Grove Groceries",
+  "Turquoise Wave Surf Co.",
+];
   
 export const generateLevel = (i) => {
     const random = Math.round(Math.random());
 
     return {
       smallBusiness: {
-        name: `Small Business ${i + 1}`,
+        name: businessNames[i*3],
         inventoryNeeds: (i + 1) * 1000,
         preferredInterestRate: 0.05 + (i % 5) * 0.01,
         preferredTimeline: 3 + (i % 12),

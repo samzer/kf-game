@@ -3,7 +3,7 @@ import Image from 'next/image'
 import { Inter } from 'next/font/google'
 import styles from 'kfgame/styles/Home.module.css'
 import React, { useState, useEffect } from 'react';
-import { initialLevels, generateLevel, investorNames } from '../components/levels';
+import { initialLevels, generateLevel, investorNames, businessNames } from '../components/levels';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -71,10 +71,16 @@ export default function Home() {
   useEffect(() => {
     const randomizeLevels = () => {
       const shuffledInvestorNames = [...investorNames].sort(() => Math.random() - 0.5);
+      const shuffledBusinessNames = [...businessNames].sort(() => Math.random() - 0.5);
+
       const randomizedLevels = levels.map((_, i) => {
         const level = generateLevel(i);
         return {
           ...level,
+          smallBusiness: {
+              ...smallBusiness,
+              name: shuffledBusinessNames[i * 3 ],
+            },
           potentialInvestors: level.potentialInvestors.map((investor, j) => {
             return {
               ...investor,
